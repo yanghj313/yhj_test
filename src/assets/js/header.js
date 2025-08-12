@@ -1,5 +1,4 @@
 $(function () {
-	/* ===== Base refs ===== */
 	const $header = $('.header');
 	const $searchToggle = $('#searchToggle');
 	const $searchOverlay = $('#searchOverlay');
@@ -26,18 +25,17 @@ $(function () {
 	}
 	function refreshDim() {
 		const submenuOpen = $('#submenuHost').hasClass('active');
-		$('body').toggleClass('submenu-open', submenuOpen); // 헤더 z-index 승격용
+		$('body').toggleClass('submenu-open', submenuOpen);
 		$dim.toggleClass('active', anyLayerOpen());
-		// 서브메뉴는 스크롤락 없음 (검색/카트/모바일만 락)
+
 		lockBody($cartSidebar.hasClass('active') || $searchOverlay.hasClass('active') || $mobileMenu.hasClass('active'));
 	}
 
-	/* ===== Indicator (Tamburins-like) ===== */
 	const $nav = $('.nav-menu');
 	const $menuLinks = $('.menu-link');
 	const $indicator = $('<span class="menu-indicator"></span>').appendTo($nav);
 	let $activeLink = $menuLinks.filter('.is-active').first();
-	let indicatorReady = !!$activeLink.length; // 첫 등장에서는 애니메이션 없음
+	let indicatorReady = !!$activeLink.length;
 
 	function moveIndicator($link, opts = {}) {
 		if (!$link || !$link.length) {
@@ -59,15 +57,12 @@ $(function () {
 		$nav.addClass('has-active');
 
 		if (instant) {
-			// 강제로 리플로우 후 클래스 제거하여 다음부턴 트랜지션 적용
-			// eslint-disable-next-line no-unused-expressions
 			$indicator[0].offsetWidth;
 			$indicator.removeClass('no-anim');
 		}
 	}
 	if ($activeLink.length) moveIndicator($activeLink, { instant: true, color: 'active' });
 
-	/* ===== Scroll header hide (disabled when layers open) ===== */
 	function handleScroll() {
 		if (anyLayerOpen()) {
 			$header.removeClass('hidden');
@@ -86,7 +81,6 @@ $(function () {
 	}
 	$(window).on('scroll', debounce(handleScroll, 10));
 
-	/* ===== Search ===== */
 	function toggleSearch() {
 		if (!$searchOverlay.length) return;
 		$searchOverlay.toggleClass('active');
@@ -101,7 +95,6 @@ $(function () {
 	$searchToggle.on('click', toggleSearch);
 	$searchClose.on('click', toggleSearch);
 
-	/* ===== Cart ===== */
 	function toggleCart() {
 		if (!$cartSidebar.length) return;
 		$cartSidebar.toggleClass('active');
@@ -111,7 +104,6 @@ $(function () {
 	$cartToggle.on('click', toggleCart);
 	$cartClose.on('click', toggleCart);
 
-	/* ===== Mobile Menu ===== */
 	function closeAllMobileSubmenus() {
 		$('.mobile-submenu').removeClass('active');
 		$('.mobile-menu-link').removeClass('active');
@@ -138,8 +130,6 @@ $(function () {
 		}
 	});
 
-	/* ===== Submenu Host (single, flicker-free) ===== */
-	// 호스트는 항상 DOM에 존재(없으면 생성). 내부 높이 트윈을 위해 __inner 래퍼가 필요.
 	const $submenuHost = $('#submenuHost').length
 		? $('#submenuHost')
 		: $(
@@ -153,25 +143,21 @@ $(function () {
 	const $hostInner = $submenuHost.find('.submenu-host__inner');
 	const $stage = $submenuHost.find('.submenu-stage');
 
-	// 템플릿 HTML 가져오기 (우선순위: #id -> .menu-item 내부 .submenu[data-submenu="id"])
 	function getTplHtml(key) {
 		if (!key) return '';
 		const id = ('' + key).replace(/^#/, '');
 
-		// 1) #id (template / div 등) 지원
 		const $tpl = $('#' + id);
 		if ($tpl.length) {
 			let html = $tpl.data('html');
 			if (!html) {
-				// template 태그든 div든 통일해서 innerHTML 사용
 				html = $tpl.html();
 				$tpl.data('html', html);
-				$tpl.empty(); // 중복 ID 방지 위해 비움
+				$tpl.empty();
 			}
 			return html;
 		}
 
-		// 2) 기존 마크업 fallback: .submenu[data-submenu="id"]를 템플릿로 취급
 		const $inline = $(`.menu-item .submenu[data-submenu="${id}"]`).first();
 		if ($inline.length) {
 			let html = $inline.data('html');
@@ -186,7 +172,6 @@ $(function () {
 		return '';
 	}
 
-	// 컨텐츠만 교체 (호스트는 항상 유지) + 내부 높이 트윈 + 교차 페이드
 	let swapping = false;
 	let currentSubmenuKey = null;
 
@@ -200,7 +185,6 @@ $(function () {
 		const $current = $stage.children('.submenu-panel');
 		const $next = $('<div class="submenu-panel" />').html(nextHtml).appendTo($stage);
 
-		// 겹쳐놓고 측정
 		if ($current.length) $current.addClass('abs').css({ opacity: 1 });
 		$next.addClass('abs').css({ opacity: 0 });
 
@@ -208,22 +192,18 @@ $(function () {
 		const nextH = $next.outerHeight();
 
 		if (opening) {
-			// 처음 열릴 때: 목표 높이를 먼저 적어두고 active 켜서 포인터만 허용
 			$hostInner.height(nextH);
 			$submenuHost.addClass('active');
 		} else {
-			// 열려있으면 현재 높이에서 다음 높이로 트윈
 			const curH = $hostInner.outerHeight();
 			if (Math.abs(curH - nextH) > 1) $hostInner.height(nextH);
 		}
 
-		// 교차 페이드 시작
 		requestAnimationFrame(() => {
 			$next.css({ opacity: 1 });
 			if ($current.length) $current.css({ opacity: 0 });
 		});
 
-		// 이미지 로딩 후 높이 재보정
 		const adjust = () => {
 			const h = $next.outerHeight();
 			if (Math.abs(h - $hostInner.height()) > 2) {
@@ -236,18 +216,16 @@ $(function () {
 		});
 		setTimeout(adjust, 80);
 
-		// 정리
 		setTimeout(() => {
 			if ($current.length) $current.remove();
 			$next.removeClass('abs').css({ opacity: '' });
-			// 높이 자동으로 돌려놓기 (다음 전환 전까지 자연 높이 유지)
+
 			setTimeout(() => $hostInner.css('height', 'auto'), 10);
 			currentSubmenuKey = keyForState || null;
 			swapping = false;
 		}, 240);
 	}
 
-	/* ===== Top menu: click to open/keep (close only via dim) [data-submenu] ===== */
 	$(document).on('click', '.menu-link', function (e) {
 		if (window.matchMedia('(max-width: 1024px)').matches) return;
 		const $link = $(this);
@@ -260,14 +238,11 @@ $(function () {
 			const html = getTplHtml(key);
 			if (!html) return;
 
-			// 활성 표시 전환
 			$('.menu-link.is-active').not($link).removeClass('is-active').removeAttr('aria-current');
 			$link.addClass('is-active').attr('aria-current', 'page');
 
-			// 컨텐츠만 교체
 			swapSubmenuContentHtml(html, ('' + key).replace(/^#/, ''));
 
-			// 인디케이터(흰색) 이동
 			$activeLink = $link;
 			indicatorReady = true;
 			moveIndicator($activeLink, { color: 'active' });
@@ -276,7 +251,6 @@ $(function () {
 			return;
 		}
 
-		// 서브메뉴 없는 항목
 		$('.menu-link.is-active').not($link).removeClass('is-active').removeAttr('aria-current');
 		$link.addClass('is-active').attr('aria-current', 'page');
 
@@ -287,10 +261,9 @@ $(function () {
 		if (href === '#' || href.startsWith('#')) e.preventDefault();
 	});
 
-	/* ===== Hover: only indicator/text highlight (no submenu open) ===== */
 	$(document).on('mouseenter focusin', '.menu-link', function () {
 		const $link = $(this);
-		moveIndicator($link, { instant: !indicatorReady, color: 'hover' }); // 첫 호버는 instant
+		moveIndicator($link, { instant: !indicatorReady, color: 'hover' });
 		indicatorReady = true;
 	});
 	$nav.on('mouseleave', function () {
@@ -301,7 +274,6 @@ $(function () {
 		}
 	});
 
-	/* ===== Dim closes only ===== */
 	$dim.on('click', function () {
 		if ($cartSidebar.hasClass('active')) {
 			$('#cartClose').trigger('click');
@@ -317,19 +289,18 @@ $(function () {
 		}
 
 		if ($submenuHost.hasClass('active')) {
-			$submenuHost.removeClass('active'); // 포인터만 죽임(호스트는 그대로)
-			$hostInner.height(0); // 높이 닫힘
-			$stage.empty(); // 패널 제거
+			$submenuHost.removeClass('active');
+			$hostInner.height(0);
+			$stage.empty();
 			$('.menu-link.is-active').removeClass('is-active').removeAttr('aria-current');
 			$activeLink = $();
 			$nav.removeClass('is-hover');
-			moveIndicator($activeLink); // 인디케이터 숨김
+			moveIndicator($activeLink);
 			currentSubmenuKey = null;
 			refreshDim();
 		}
 	});
 
-	/* ===== ESC closes search/cart/mobile only ===== */
 	$(document).on('keydown', function (e) {
 		if (e.key === 'Escape') {
 			if ($searchOverlay.hasClass('active')) toggleSearch();
@@ -338,7 +309,6 @@ $(function () {
 		}
 	});
 
-	/* ===== Search Enter ===== */
 	$searchInput.on('keypress', function (e) {
 		if (e.key === 'Enter') {
 			const q = $.trim($(this).val());
@@ -346,7 +316,6 @@ $(function () {
 		}
 	});
 
-	/* ===== Touch: cart/mobile swipe ===== */
 	let tSX = 0,
 		tSY = 0,
 		tEX = 0,
@@ -384,7 +353,6 @@ $(function () {
 		$(document).on('touchend', handleTouchEnd);
 	}
 
-	/* ===== Demo cart ===== */
 	let cartItems = [],
 		cartCount = 0;
 	function updateCartCount() {
@@ -430,7 +398,6 @@ $(function () {
 	window.removeFromCart = removeFromCart;
 	updateCartDisplay();
 
-	/* ===== Header visibility observer ===== */
 	const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
 	if ('IntersectionObserver' in window) {
 		const headerObserver = new IntersectionObserver(
@@ -444,10 +411,9 @@ $(function () {
 		if ($mainContent.length) headerObserver.observe($mainContent.get(0));
 	}
 
-	/* ===== Resize ===== */
 	$(window).on('resize', function () {
 		if ($(window).width() > 768 && $mobileMenu.hasClass('active')) toggleMobileMenu();
-		moveIndicator($activeLink); // 메뉴 위치 재계산
+		moveIndicator($activeLink);
 	});
 
 	console.log('Header functionality (Tamburins-like, data-submenu, no flicker) initialized');

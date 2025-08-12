@@ -58,7 +58,6 @@ body.submenu-open .header {
     transform: scale(1.05);
 }
 
-/* ===== Nav + Indicator ===== */
 .nav-menu {
     flex: 1;
     display: flex;
@@ -603,8 +602,6 @@ body.submenu-open .header {
 }
 
 
-/* === Hamburger toggle (모바일 전용) === */
-/* 기본: 데스크톱에서는 숨김 */
 .mobile-menu-toggle {
     display: none;
     appearance: none;
@@ -612,10 +609,7 @@ body.submenu-open .header {
     border: 0;
     padding: 8px;
     cursor: pointer;
-
-    /* 색상을 currentColor로 쓰게 해서 테마 바뀌어도 자동 대응 */
     color: #fff;
-    /* 헤더가 어두우면 흰색, 밝은 헤더면 #111로 */
 }
 
 /* 라인 3개 */
@@ -624,7 +618,6 @@ body.submenu-open .header {
     width: 22px;
     height: 2px;
     background: currentColor;
-    /* ← 라인 색 */
     border-radius: 1px;
     margin: 4px 0;
     transition: transform .25s ease, opacity .25s ease;
@@ -643,7 +636,7 @@ body.submenu-open .header {
     transform: translateY(-6px) rotate(-45deg);
 }
 
-/* 모바일에서만 햄버거 노출 + 데스크톱 메뉴 숨김 */
+
 @media (max-width: 1024px) {
     .mobile-menu-toggle {
         display: flex;
@@ -654,11 +647,10 @@ body.submenu-open .header {
 
     .nav-menu {
         display: none;
-        /* 모바일에서는 상단 탭 메뉴 숨김 */
     }
 }
 
-/* 데스크톱 강제 보호(혹시 상위 css가 덮어쓰면) */
+
 @media (min-width: 1025px) {
     .mobile-menu-toggle {
         display: none !important;
@@ -696,6 +688,44 @@ body.submenu-open .header {
 
 .mobile-submenu-image:hover .mobile-submenu-image-name {
     color: #000;
+}
+
+/* ▼ 모바일 서브메뉴 + / − 아이콘 */
+.mobile-menu-arrow {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .25s ease;
+}
+
+.mobile-menu-arrow .arrow-line {
+    position: absolute;
+    background: currentColor;
+    border-radius: 1px;
+    transition: transform .25s ease, opacity .25s ease;
+}
+
+.mobile-menu-arrow .arrow-line.horizontal {
+    width: 14px;
+    height: 2px;
+}
+
+.mobile-menu-arrow .arrow-line.vertical {
+    width: 2px;
+    height: 14px;
+}
+
+/* active 상태(열림)일 때 세로 라인 숨김 → ‘−’로 보임 */
+.mobile-menu-link.active .mobile-menu-arrow .arrow-line.vertical {
+    opacity: 0;
+    transform: scale(.8);
+}
+
+.mobile-menu-link:hover .mobile-menu-arrow {
+    transform: scale(1.05);
 }
 
 /* ===== Dim ===== */
