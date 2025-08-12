@@ -368,7 +368,7 @@
 @media (min-width: 1200px) {
     .header-container {
         max-width: 1400px;
-        padding: 0;
+        padding: 0 20px;
         height: 90px;
     }
 
@@ -567,11 +567,11 @@
     }
 
     .mobile-menu {
-        background: #000;
+        background: #ffffff;
     }
 
     .mobile-menu-link {
-        color: #fff;
+        color: #333;
     }
 
     .mobile-menu-link:hover {

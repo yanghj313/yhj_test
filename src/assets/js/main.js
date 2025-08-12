@@ -2,24 +2,34 @@ const $slider = $('.best-seller-swiper');
 
 $slider.slick({
 	centerMode: true,
-	centerPadding: '0px',
+	centerPadding: '10vw',
 	slidesToShow: 5,
-	slidesToScroll: 1,
 	arrows: false,
 	dots: false,
 	infinite: true,
 	autoplay: true,
-	autoplaySpeed: 2000,
-	pauseOnHover: true,
-	pauseOnFocus: true,
+	autoplaySpeed: 2200,
 	speed: 600,
 	cssEase: 'cubic-bezier(0.22,0.61,0.36,1)',
-	waitForAnimate: false,
 	swipeToSlide: true,
 	focusOnSelect: true,
 	responsive: [
-		{ breakpoint: 1440, settings: { slidesToShow: 3, centerMode: true, centerPadding: '0px' } },
-		{ breakpoint: 768, settings: { slidesToShow: 1, centerMode: true, centerPadding: '16vw' } },
+		{
+			breakpoint: 1200,
+			settings: {
+				slidesToShow: 3,
+				centerMode: true,
+				centerPadding: '12vw',
+			},
+		},
+		{
+			breakpoint: 768,
+			settings: {
+				slidesToShow: 1,
+				centerMode: true,
+				centerPadding: '16vw',
+			},
+		},
 	],
 });
 
@@ -29,12 +39,9 @@ $slider.on('click', '.slick-slide', function () {
 	if (idx !== cur) $slider.slick('slickGoTo', idx);
 });
 
-$(document).keydown(function (e) {
-	if (e.keyCode === 37) {
-		$('.best-seller-swiper').slick('slickPrev');
-	} else if (e.keyCode === 39) {
-		$('.best-seller-swiper').slick('slickNext');
-	}
+$(document).on('keydown', e => {
+	if (e.key === 'ArrowLeft') $slider.slick('slickPrev');
+	if (e.key === 'ArrowRight') $slider.slick('slickNext');
 });
 
 var customCursor = document.getElementById('cursor'),

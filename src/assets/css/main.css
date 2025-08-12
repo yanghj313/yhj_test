@@ -110,16 +110,12 @@ body.hide-cursor * {
 }
 
 
+/* --- Slider core: 심플하게 --- */
 .best-seller-swiper {
-    position: relative;
     width: 100%;
-    height: 800px;
+    margin: 160px auto 100px;
+    /* 취향껏 */
     cursor: grab;
-    display: block;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 250px auto 100px;
 }
 
 .best-seller-swiper:active {
@@ -128,28 +124,28 @@ body.hide-cursor * {
 
 .best-seller-swiper .slick-list {
     overflow: visible;
-    margin: 0 -30px;
+    /* 옆 슬라이드가 비치도록 */
+    margin: 0;
+    /* ★ 음수마진 절대 금지: centerPadding과 충돌함 */
 }
 
-
 .best-seller-swiper .slick-slide {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0.3;
-    transform: scale(0.8);
-    padding: 0;
-    margin: 0 30px;
-    cursor: pointer;
+    padding: 0 18px;
+    /* 카드 간격 */
+    opacity: .45;
+    /* 사이드는 옅게 */
+    transform: scale(.92);
+    /* 사이드 축소 */
+    transition: transform .35s ease, opacity .25s ease;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-
-
 .best-seller-swiper .slick-center {
     opacity: 1;
-    transform: scale(1.2);
-    z-index: 2;
+    transform: scale(1);
+    /* 센터는 정배율 */
 }
 
 
@@ -166,7 +162,7 @@ body.hide-cursor * {
 
 .slide-image {
     width: 100%;
-    max-width: 300px;
+    max-width: 100%;
     margin-bottom: 25px;
     overflow: hidden;
     border-radius: 12px;
@@ -240,21 +236,26 @@ body.hide-cursor * {
     .best-seller-swiper .slick-center {
         transform: scale(1.14);
     }
+
+    .slide-title {
+        font-size: 1rem;
+    }
+
+    .slide-subtitle {
+        font-size: 0.7rem;
+    }
+
+    .slide-link {
+        font-size: 0.8rem;
+        height: 28px;
+        width: 80px;
+    }
 }
 
 
 @media (max-width: 1200px) {
     .best-seller-swiper .slick-slide {
         margin: 0 16px;
-        transform: scale(.88);
-    }
-
-    .best-seller-swiper .slick-list {
-        margin: 0 -16px;
-    }
-
-    .best-seller-swiper .slick-center {
-        transform: scale(1.10);
     }
 }
 
@@ -266,14 +267,12 @@ body.hide-cursor * {
 
     .best-seller-swiper {
         height: 100vh;
+        margin: 120px auto 60px;
     }
 
     .best-seller-swiper .slick-slide {
-        margin: 0 12px;
-    }
-
-    .best-seller-swiper .slick-list {
-        margin: 0 -12px;
+        padding: 0 12px;
+        transform: scale(.98);
     }
 
     .best-seller-swiper .slick-center {
