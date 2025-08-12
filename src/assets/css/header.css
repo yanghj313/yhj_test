@@ -1,4 +1,3 @@
-/* ===== Reset ===== */
 * {
     margin: 0;
     padding: 0;
@@ -11,7 +10,6 @@ body {
     overflow-x: hidden;
 }
 
-/* ===== Header ===== */
 .header {
     position: fixed;
     top: 0;
@@ -101,9 +99,6 @@ body.submenu-open .header {
     display: none;
 }
 
-/* 개별 밑줄 사용 안 함 */
-
-/* 인디케이터: 기본 숨김, 호버/활성 시만 표시 */
 .menu-indicator {
     position: absolute;
     bottom: 0;
@@ -127,18 +122,13 @@ body.submenu-open .header {
     opacity: 1;
 }
 
-.nav-menu.is-hover .menu-indicator {}
 
-/* 호버 시 라인 = 노랑 */
 .menu-link:hover,
 .menu-link:focus-visible {
     color: #333 !important;
 }
 
-/* 호버 시 텍스트 = 노랑 */
 
-/* ===== Submenu ===== */
-/* 메뉴 항목 내부의 원본 서브메뉴는 '콘텐츠 저장용'으로만 쓰고 화면에서는 숨김 */
 .menu-item>.submenu {
     display: none !important;
 }
@@ -427,7 +417,6 @@ body.submenu-open .header {
     box-shadow: 0 4px 20px rgba(0, 0, 0, .1);
 }
 
-/* ===== Cart Sidebar ===== */
 .cart-sidebar {
     position: fixed;
     top: 0;
