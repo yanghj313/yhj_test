@@ -81,9 +81,14 @@ $(function () {
 	}
 	$(window).on('scroll', debounce(handleScroll, 10));
 
+	/* ===== Search ===== */
 	function toggleSearch() {
 		if (!$searchOverlay.length) return;
 		$searchOverlay.toggleClass('active');
+
+		// ✅ 검색 열릴 때 서브메뉴 호스트 닫기
+		if ($searchOverlay.hasClass('active')) closeSubmenuHost();
+
 		if ($searchOverlay.hasClass('active')) {
 			$searchInput.trigger('focus');
 			lockBody(true);
@@ -95,21 +100,31 @@ $(function () {
 	$searchToggle.on('click', toggleSearch);
 	$searchClose.on('click', toggleSearch);
 
+	/* ===== Cart ===== */
 	function toggleCart() {
 		if (!$cartSidebar.length) return;
 		$cartSidebar.toggleClass('active');
+
+		// ✅ 장바구니 열릴 때 서브메뉴 호스트 닫기
+		if ($cartSidebar.hasClass('active')) closeSubmenuHost();
+
 		lockBody($cartSidebar.hasClass('active'));
 		refreshDim();
 	}
 	$cartToggle.on('click', toggleCart);
 	$cartClose.on('click', toggleCart);
 
+	/* ===== Mobile Menu ===== */
 	function closeAllMobileSubmenus() {
 		$('.mobile-submenu').removeClass('active');
 		$('.mobile-menu-link').removeClass('active');
 	}
 	function toggleMobileMenu() {
 		if (!$mobileMenu.length) return;
+
+		const opening = !$mobileMenu.hasClass('active');
+		if (opening) closeSubmenuHost(); // ✅ 햄버거 열릴 때도 닫기
+
 		$mobileMenu.toggleClass('active');
 		$mobileMenuToggle.toggleClass('active');
 		lockBody($mobileMenu.hasClass('active'));
@@ -130,6 +145,7 @@ $(function () {
 		}
 	});
 
+	/* ===== Submenu Host ===== */
 	const $submenuHost = $('#submenuHost').length
 		? $('#submenuHost')
 		: $(
@@ -142,6 +158,22 @@ $(function () {
 
 	const $hostInner = $submenuHost.find('.submenu-host__inner');
 	const $stage = $submenuHost.find('.submenu-stage');
+
+	// ✅ 서브메뉴 호스트 닫기 헬퍼
+	function closeSubmenuHost() {
+		if (!$submenuHost.length) return;
+		if ($submenuHost.hasClass('active')) {
+			$submenuHost.removeClass('active');
+			$hostInner.height(0);
+			$stage.empty();
+			$('.menu-link.is-active').removeClass('is-active').removeAttr('aria-current');
+			$activeLink = $();
+			$nav.removeClass('is-hover');
+			moveIndicator($activeLink);
+			currentSubmenuKey = null;
+			refreshDim();
+		}
+	}
 
 	function getTplHtml(key) {
 		if (!key) return '';
@@ -413,6 +445,12 @@ $(function () {
 
 	$(window).on('resize', function () {
 		if ($(window).width() > 768 && $mobileMenu.hasClass('active')) toggleMobileMenu();
+
+		// 모바일 구간 들어오면 서브메뉴 호스트 닫기
+		if (window.matchMedia('(max-width: 1024px)').matches) {
+			closeSubmenuHost();
+		}
+
 		moveIndicator($activeLink);
 	});
 

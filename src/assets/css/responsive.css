@@ -37,8 +37,8 @@
 
     .search-icon,
     .cart-icon {
-        width: 20px;
-        height: 20px;
+        width: 30px;
+        height: 30px;
     }
 
     /* 검색 오버레이 조정 */
@@ -368,7 +368,7 @@
 @media (min-width: 1200px) {
     .header-container {
         max-width: 1400px;
-        padding: 0 30px;
+        padding: 0;
         height: 90px;
     }
 
@@ -415,7 +415,7 @@
 @media (min-width: 1600px) {
     .header-container {
         max-width: 1600px;
-        padding: 0 40px;
+        padding: 0;
         height: 80px;
     }
 
@@ -430,6 +430,7 @@
     .menu-link {
         font-size: 16px;
         padding: 15px 0;
+        color: #333;
     }
 
     /* 서브메뉴 조정 */
@@ -534,12 +535,12 @@
 /* 다크 모드 지원 */
 @media (prefers-color-scheme: dark) {
     .header {
-        background: rgba(0, 0, 0, 0.95);
+        background: rgb(255 255 255 / 95%);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .menu-link {
-        color: #fff;
+        color: #333;
     }
 
     .menu-link:hover {

@@ -61,7 +61,7 @@ body.submenu-open .header {
 .nav-menu {
     flex: 1;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     position: relative;
     height: 100%;
@@ -110,7 +110,7 @@ body.submenu-open .header {
     left: 0;
     height: 3px;
     width: 0;
-    background: #fff;
+    background: rgba(0, 0, 0, 0.98);
     border-radius: 2px;
     transform: translateX(0);
     transition: transform .28s cubic-bezier(.4, 0, .2, 1), width .28s cubic-bezier(.4, 0, .2, 1), opacity .2s ease, background-color .2s ease;
@@ -127,14 +127,12 @@ body.submenu-open .header {
     opacity: 1;
 }
 
-.nav-menu.is-hover .menu-indicator {
-    background: #ffcc00;
-}
+.nav-menu.is-hover .menu-indicator {}
 
 /* 호버 시 라인 = 노랑 */
 .menu-link:hover,
 .menu-link:focus-visible {
-    color: #ffcc00 !important;
+    color: #333 !important;
 }
 
 /* 호버 시 텍스트 = 노랑 */
@@ -180,7 +178,7 @@ body.submenu-open .header {
     visibility: visible;
     pointer-events: auto;
     padding: 40px;
-    border: 1px solid rgba(0, 0, 0, .1);
+    /* border: 1px solid rgba(0, 0, 0, .1); */
     box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
     height: 30%;
 }
@@ -209,9 +207,9 @@ body.submenu-open .header {
 
 /* ===== Submenu Content Layout ===== */
 .submenu-content {
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
-    padding-left: 200px;
+    padding-left: 0;
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
@@ -281,8 +279,8 @@ body.submenu-open .header {
 
 .cart-count {
     position: absolute;
-    top: -5px;
-    right: -5px;
+    top: 0px;
+    right: 0px;
     background: #ff4757;
     color: #fff;
     font-size: 10px;
@@ -345,8 +343,14 @@ body.submenu-open .header {
     background-color: rgba(0, 0, 0, .05);
 }
 
+.search-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .search-input {
-    width: 100%;
+    width: 90%;
     padding: 15px 50px 15px 20px;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
@@ -360,10 +364,10 @@ body.submenu-open .header {
 }
 
 .search-submit {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
+    /* position: absolute; */
+    right: 12%;
+    top: 13%;
+    /* transform: translateY(-50%); */
     background: none;
     border: none;
     cursor: pointer;
@@ -609,7 +613,7 @@ body.submenu-open .header {
     border: 0;
     padding: 8px;
     cursor: pointer;
-    color: #fff;
+    color: #333;
 }
 
 /* 라인 3개 */
