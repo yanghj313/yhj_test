@@ -1,6 +1,5 @@
 /* 반응형 디자인 */
 
-/* 태블릿 (768px 이하) */
 @media (max-width: 768px) {
     .header-container {
         padding: 0 15px;
@@ -16,12 +15,10 @@
         height: 35px;
     }
 
-    /* 데스크톱 네비게이션 숨기기 */
     .nav-menu {
         display: none;
     }
 
-    /* 모바일 메뉴 토글 버튼 표시 */
     .mobile-menu-toggle {
         display: flex;
     }

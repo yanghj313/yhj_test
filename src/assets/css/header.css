@@ -151,7 +151,7 @@ body.submenu-open .header {
     transform: translateZ(0);
 }
 
-/* 배경/블러는 before에만 두고 opacity만 전환 */
+
 .submenu-host::before {
     content: "";
     position: absolute;
@@ -168,7 +168,6 @@ body.submenu-open .header {
     visibility: visible;
     pointer-events: auto;
     padding: 40px;
-    /* border: 1px solid rgba(0, 0, 0, .1); */
     box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
     height: 30%;
 }
@@ -195,7 +194,7 @@ body.submenu-open .header {
     inset: 0;
 }
 
-/* ===== Submenu Content Layout ===== */
+
 .submenu-content {
     max-width: 1600px;
     margin: 0 auto;
@@ -605,7 +604,7 @@ body.submenu-open .header {
     color: #333;
 }
 
-/* 라인 3개 */
+
 .mobile-menu-toggle .hamburger-line {
     display: block;
     width: 22px;
@@ -616,7 +615,7 @@ body.submenu-open .header {
     transition: transform .25s ease, opacity .25s ease;
 }
 
-/* X 애니메이션 */
+
 .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
     transform: translateY(6px) rotate(45deg);
 }
@@ -683,7 +682,6 @@ body.submenu-open .header {
     color: #000;
 }
 
-/* ▼ 모바일 서브메뉴 + / − 아이콘 */
 .mobile-menu-arrow {
     position: relative;
     width: 20px;
@@ -711,7 +709,7 @@ body.submenu-open .header {
     height: 14px;
 }
 
-/* active 상태(열림)일 때 세로 라인 숨김 → ‘−’로 보임 */
+
 .mobile-menu-link.active .mobile-menu-arrow .arrow-line.vertical {
     opacity: 0;
     transform: scale(.8);
@@ -721,7 +719,7 @@ body.submenu-open .header {
     transform: scale(1.05);
 }
 
-/* ===== Dim ===== */
+
 #globalDim {
     position: fixed;
     inset: 0;
@@ -739,7 +737,6 @@ body.submenu-open .header {
     pointer-events: auto;
 }
 
-/* ===== A11y / Prefers ===== */
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: .01ms !important;

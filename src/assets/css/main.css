@@ -109,12 +109,9 @@ body.hide-cursor * {
     z-index: 10;
 }
 
-
-/* --- Slider core: 심플하게 --- */
 .best-seller-swiper {
     width: 100%;
     margin: 160px auto 100px;
-    /* 취향껏 */
     cursor: grab;
 }
 
@@ -124,18 +121,13 @@ body.hide-cursor * {
 
 .best-seller-swiper .slick-list {
     overflow: visible;
-    /* 옆 슬라이드가 비치도록 */
     margin: 0;
-    /* ★ 음수마진 절대 금지: centerPadding과 충돌함 */
 }
 
 .best-seller-swiper .slick-slide {
     padding: 0 18px;
-    /* 카드 간격 */
     opacity: .45;
-    /* 사이드는 옅게 */
     transform: scale(.92);
-    /* 사이드 축소 */
     transition: transform .35s ease, opacity .25s ease;
     display: flex;
     align-items: center;
