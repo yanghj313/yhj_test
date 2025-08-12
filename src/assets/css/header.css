@@ -602,6 +602,69 @@ body.submenu-open .header {
     background: #f8f8f8;
 }
 
+
+/* === Hamburger toggle (모바일 전용) === */
+/* 기본: 데스크톱에서는 숨김 */
+.mobile-menu-toggle {
+    display: none;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 8px;
+    cursor: pointer;
+
+    /* 색상을 currentColor로 쓰게 해서 테마 바뀌어도 자동 대응 */
+    color: #fff;
+    /* 헤더가 어두우면 흰색, 밝은 헤더면 #111로 */
+}
+
+/* 라인 3개 */
+.mobile-menu-toggle .hamburger-line {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: currentColor;
+    /* ← 라인 색 */
+    border-radius: 1px;
+    margin: 4px 0;
+    transition: transform .25s ease, opacity .25s ease;
+}
+
+/* X 애니메이션 */
+.mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* 모바일에서만 햄버거 노출 + 데스크톱 메뉴 숨김 */
+@media (max-width: 1024px) {
+    .mobile-menu-toggle {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-menu {
+        display: none;
+        /* 모바일에서는 상단 탭 메뉴 숨김 */
+    }
+}
+
+/* 데스크톱 강제 보호(혹시 상위 css가 덮어쓰면) */
+@media (min-width: 1025px) {
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+}
+
 .mobile-submenu.active {
     max-height: 500px;
 }

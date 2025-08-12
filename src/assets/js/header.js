@@ -249,9 +249,10 @@ $(function () {
 
 	/* ===== Top menu: click to open/keep (close only via dim) [data-submenu] ===== */
 	$(document).on('click', '.menu-link', function (e) {
+		if (window.matchMedia('(max-width: 1024px)').matches) return;
 		const $link = $(this);
 		const href = $link.attr('href') || '';
-		const key = $link.data('submenu'); // 예: data-submenu="submenu-dog" 또는 "#submenu-dog"
+		const key = $link.data('submenu');
 
 		if (key) {
 			e.preventDefault();
